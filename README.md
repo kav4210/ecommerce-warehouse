@@ -41,7 +41,7 @@ pip install -r requirements-spark.txt      # needs Java 17+ (run here on Java 21
 python spark/spark_marts.py data
 ```
 
-Result: 27 of 27 control totals match (PostgreSQL vs PySpark), about 1 minute in local mode. Agreement between two independent implementations is evidence the SCD2 and point-in-time logic is correct, not just self-consistent.
+Result: 27 of 27 control totals match (PostgreSQL vs PySpark), about 1 minute in local mode (run in a Linux sandbox on Java 21). Agreement between two independent implementations is evidence the SCD2 and point-in-time logic is correct, not just self-consistent.
 
 ## Architecture
 
@@ -99,7 +99,7 @@ Descriptive findings on this dataset, not causal claims.
 - Verified: `docker compose up --build` on Docker Desktop (Windows) ran fetch, load, `dbt run` (17 models) and `dbt test` (47 pass, 3 warn, 0 fail) and exited with code 0.
 - Verified: the Snowflake-portable rewrite changed no PostgreSQL results. All 10 mart tables were diffed row by row (`EXCEPT` in both directions) against a snapshot taken before the rewrite: 0 rows differ, and the test run is identical (47 pass, 3 warn).
 - Verified offline for Snowflake: all 17 models and 13 tests render with the Snowflake macros and parse as Snowflake SQL; pinned requirements install on Python 3.12; the key generator produces a matching key pair.
-- **Not yet verified: an actual run on Snowflake.** Until `evidence/snowflake_run.log` exists in this repo, treat the Snowflake path as untested.
+- Verified on Snowflake (Nov 17, 2026, Docker Desktop on Windows, dbt 1.12.7 / dbt-snowflake 1.12.5, trial account, key-pair auth): all 8 raw tables loaded with row counts matching the source files, `dbt run` built 17 of 17 models, `dbt test` gave 47 pass, 3 warn, 0 fail (the same three warn-level source-data checks as PostgreSQL, with identical counts of 8, 775 and 304 rows), and **27 of 27 control totals match the PostgreSQL build**, including revenue and payment sums to the cent. The full console output is in `evidence/snowflake_run.log`. The Snowflake trial account is temporary (30 days), so that log is the record of the run.
 - The dataset's geolocation table is unused and not loaded.
 
 ## Data source

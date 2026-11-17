@@ -1,0 +1,263 @@
+downloading olist_customers_dataset
+ok  olist_customers_dataset                99,441 rows
+downloading olist_orders_dataset
+ok  olist_orders_dataset                   99,441 rows
+downloading olist_order_items_dataset
+ok  olist_order_items_dataset             112,650 rows
+downloading olist_order_payments_dataset
+ok  olist_order_payments_dataset          103,886 rows
+downloading olist_order_reviews_dataset
+ok  olist_order_reviews_dataset            99,224 rows
+downloading olist_products_dataset
+ok  olist_products_dataset                 32,951 rows
+downloading olist_sellers_dataset
+ok  olist_sellers_dataset                   3,095 rows
+downloading product_category_name_translation
+ok  product_category_name_translation          71 rows
+/usr/local/lib/python3.12/site-packages/snowflake/connector/connection/_connection.py:137: FutureWarning: enable_server_session_keep_alive_auto_detection was not set and defaults to True. In a future version, the default will change to None. Please provide an explicit value: True = check for running async queries before logout (queries are preserved); False/None = always send logout on close (async queries may be terminated by server). Logout behavior can also be overridden with server_session_keep_alive. See the connection parameter docs for more info.
+  options = self.config.to_proto_options(
+raw.customers                99,441 rows  (matches file)
+raw.orders                   99,441 rows  (matches file)
+raw.order_items             112,650 rows  (matches file)
+raw.order_payments          103,886 rows  (matches file)
+raw.order_reviews            99,224 rows  (matches file)
+raw.products                 32,951 rows  (matches file)
+raw.sellers                   3,095 rows  (matches file)
+raw.category_translation         71 rows  (matches file)
+16:07:16  Running with dbt=1.12.7
+16:07:17  Registered adapter: snowflake=1.12.5
+16:07:17  Unable to do partial parsing because saved manifest not found. Starting full parse.
+16:07:22  Found 17 models, 50 data tests, 8 sources, 582 macros
+16:07:22
+16:07:22  Concurrency: 4 threads (target='snowflake')
+16:07:22
+/usr/local/lib/python3.12/site-packages/snowflake/connector/connection/_connection.py:137: FutureWarning: enable_server_session_keep_alive_auto_detection was not set and defaults to True. In a future version, the default will change to None. Please provide an explicit value: True = check for running async queries before logout (queries are preserved); False/None = always send logout on close (async queries may be terminated by server). Logout behavior can also be overridden with server_session_keep_alive. See the connection parameter docs for more info.
+  options = self.config.to_proto_options(
+/usr/local/lib/python3.12/site-packages/snowflake/connector/_internal/decorators.py:459: UserWarning: Unknown parameter 'ocsp_root_certs_dict_lock_timeout'
+  result = func(self, *args, **kwargs)
+/usr/local/lib/python3.12/site-packages/snowflake/connector/_internal/decorators.py:459: UserWarning: Unknown parameter 'reuse_connections'
+  result = func(self, *args, **kwargs)
+/usr/local/lib/python3.12/site-packages/snowflake/connector/_internal/decorators.py:459: UserWarning: Unknown parameter 'insecure_mode'
+  result = func(self, *args, **kwargs)
+16:07:24  1 of 17 START sql table model mart.dim_date .................................... [RUN]
+16:07:24  2 of 17 START sql view model staging.stg_customers ............................. [RUN]
+16:07:24  3 of 17 START sql view model staging.stg_order_items ........................... [RUN]
+16:07:24  4 of 17 START sql view model staging.stg_orders ................................ [RUN]
+/usr/local/lib/python3.12/site-packages/snowflake/connector/connection/_connection.py:137: FutureWarning: enable_server_session_keep_alive_auto_detection was not set and defaults to True. In a future version, the default will change to None. Please provide an explicit value: True = check for running async queries before logout (queries are preserved); False/None = always send logout on close (async queries may be terminated by server). Logout behavior can also be overridden with server_session_keep_alive. See the connection parameter docs for more info.
+  options = self.config.to_proto_options(
+/usr/local/lib/python3.12/site-packages/snowflake/connector/_internal/decorators.py:459: UserWarning: Unknown parameter 'ocsp_root_certs_dict_lock_timeout'
+  result = func(self, *args, **kwargs)
+/usr/local/lib/python3.12/site-packages/snowflake/connector/_internal/decorators.py:459: UserWarning: Unknown parameter 'reuse_connections'
+  result = func(self, *args, **kwargs)
+/usr/local/lib/python3.12/site-packages/snowflake/connector/_internal/decorators.py:459: UserWarning: Unknown parameter 'insecure_mode'
+  result = func(self, *args, **kwargs)
+16:07:25  2 of 17 OK created sql view model staging.stg_customers ........................ [SUCCESS 1 in 0.71s]
+16:07:25  5 of 17 START sql view model staging.stg_payments .............................. [RUN]
+16:07:25  4 of 17 OK created sql view model staging.stg_orders ........................... [SUCCESS 1 in 0.98s]
+16:07:25  3 of 17 OK created sql view model staging.stg_order_items ...................... [SUCCESS 1 in 1.00s]
+16:07:25  6 of 17 START sql view model staging.stg_products .............................. [RUN]
+16:07:25  7 of 17 START sql view model staging.stg_reviews ............................... [RUN]
+16:07:25  5 of 17 OK created sql view model staging.stg_payments ......................... [SUCCESS 1 in 0.42s]
+16:07:25  8 of 17 START sql view model staging.stg_sellers ............................... [RUN]
+16:07:25  1 of 17 OK created sql table model mart.dim_date ............................... [SUCCESS 1096 in 1.20s]
+16:07:25  9 of 17 START sql table model mart.dim_customer ................................ [RUN]
+16:07:26  6 of 17 OK created sql view model staging.stg_products ......................... [SUCCESS 1 in 0.54s]
+16:07:26  10 of 17 START sql table model mart.dim_product ................................ [RUN]
+16:07:26  7 of 17 OK created sql view model staging.stg_reviews .......................... [SUCCESS 1 in 0.56s]
+16:07:26  8 of 17 OK created sql view model staging.stg_sellers .......................... [SUCCESS 1 in 0.48s]
+16:07:26  11 of 17 START sql table model mart.dim_seller ................................. [RUN]
+16:07:27  11 of 17 OK created sql table model mart.dim_seller ............................ [SUCCESS 3096 in 1.43s]
+16:07:28  10 of 17 OK created sql table model mart.dim_product ........................... [SUCCESS 32952 in 1.96s]
+16:07:28  9 of 17 OK created sql table model mart.dim_customer ........................... [SUCCESS 96221 in 2.45s]
+16:07:28  12 of 17 START sql table model mart.fct_orders ................................. [RUN]
+16:07:32  12 of 17 OK created sql table model mart.fct_orders ............................ [SUCCESS 99441 in 4.11s]
+16:07:32  13 of 17 START sql table model mart.fct_order_items ............................ [RUN]
+16:07:32  14 of 17 START sql table model mart.mart_cohort_retention ...................... [RUN]
+16:07:32  15 of 17 START sql table model mart.mart_monthly_sales ......................... [RUN]
+16:07:33  15 of 17 OK created sql table model mart.mart_monthly_sales .................... [SUCCESS 24 in 1.20s]
+16:07:34  14 of 17 OK created sql table model mart.mart_cohort_retention ................. [SUCCESS 220 in 1.45s]
+16:07:35  13 of 17 OK created sql table model mart.fct_order_items ....................... [SUCCESS 112650 in 2.67s]
+16:07:35  16 of 17 START sql table model mart.mart_category_sales ........................ [RUN]
+16:07:35  17 of 17 START sql table model mart.mart_seller_scorecard ...................... [RUN]
+16:07:36  16 of 17 OK created sql table model mart.mart_category_sales ................... [SUCCESS 74 in 1.54s]
+16:07:36  17 of 17 OK created sql table model mart.mart_seller_scorecard ................. [SUCCESS 3053 in 1.54s]
+16:07:37
+16:07:37  Finished running 10 table models, 7 view models in 0 hours 0 minutes and 14.77 seconds (14.77s).
+16:07:37
+16:07:37  Completed successfully
+16:07:37
+16:07:37  Done. PASS=17 WARN=0 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=17
+16:07:41  Running with dbt=1.12.7
+16:07:42  Registered adapter: snowflake=1.12.5
+16:07:44  Found 17 models, 50 data tests, 8 sources, 582 macros
+16:07:44
+16:07:44  Concurrency: 4 threads (target='snowflake')
+16:07:44
+/usr/local/lib/python3.12/site-packages/snowflake/connector/connection/_connection.py:137: FutureWarning: enable_server_session_keep_alive_auto_detection was not set and defaults to True. In a future version, the default will change to None. Please provide an explicit value: True = check for running async queries before logout (queries are preserved); False/None = always send logout on close (async queries may be terminated by server). Logout behavior can also be overridden with server_session_keep_alive. See the connection parameter docs for more info.
+  options = self.config.to_proto_options(
+/usr/local/lib/python3.12/site-packages/snowflake/connector/_internal/decorators.py:459: UserWarning: Unknown parameter 'insecure_mode'
+  result = func(self, *args, **kwargs)
+/usr/local/lib/python3.12/site-packages/snowflake/connector/_internal/decorators.py:459: UserWarning: Unknown parameter 'reuse_connections'
+  result = func(self, *args, **kwargs)
+/usr/local/lib/python3.12/site-packages/snowflake/connector/_internal/decorators.py:459: UserWarning: Unknown parameter 'ocsp_root_certs_dict_lock_timeout'
+  result = func(self, *args, **kwargs)
+16:07:45  1 of 50 START test accepted_values_stg_orders_status__delivered__shipped__canceled__unavailable__invoiced__processing__created__approved  [RUN]
+16:07:45  2 of 50 START test accepted_values_stg_reviews_review_score__False__1__2__3__4__5  [RUN]
+16:07:45  3 of 50 START test assert_items_grain .......................................... [RUN]
+16:07:45  4 of 50 START test assert_no_unknown_customers ................................. [RUN]
+/usr/local/lib/python3.12/site-packages/snowflake/connector/connection/_connection.py:137: FutureWarning: enable_server_session_keep_alive_auto_detection was not set and defaults to True. In a future version, the default will change to None. Please provide an explicit value: True = check for running async queries before logout (queries are preserved); False/None = always send logout on close (async queries may be terminated by server). Logout behavior can also be overridden with server_session_keep_alive. See the connection parameter docs for more info.
+  options = self.config.to_proto_options(
+/usr/local/lib/python3.12/site-packages/snowflake/connector/_internal/decorators.py:459: UserWarning: Unknown parameter 'ocsp_root_certs_dict_lock_timeout'
+  result = func(self, *args, **kwargs)
+/usr/local/lib/python3.12/site-packages/snowflake/connector/_internal/decorators.py:459: UserWarning: Unknown parameter 'insecure_mode'
+  result = func(self, *args, **kwargs)
+/usr/local/lib/python3.12/site-packages/snowflake/connector/_internal/decorators.py:459: UserWarning: Unknown parameter 'reuse_connections'
+  result = func(self, *args, **kwargs)
+16:07:45  1 of 50 PASS accepted_values_stg_orders_status__delivered__shipped__canceled__unavailable__invoiced__processing__created__approved  [PASS in 0.68s]
+16:07:45  5 of 50 START test assert_orders_no_fanout ..................................... [RUN]
+16:07:45  2 of 50 PASS accepted_values_stg_reviews_review_score__False__1__2__3__4__5 .... [PASS in 0.73s]
+16:07:45  6 of 50 START test assert_payments_reconcile ................................... [RUN]
+16:07:46  4 of 50 PASS assert_no_unknown_customers ....................................... [PASS in 0.90s]
+16:07:46  7 of 50 START test assert_revenue_reconciles ................................... [RUN]
+16:07:46  5 of 50 PASS assert_orders_no_fanout ........................................... [PASS in 0.28s]
+16:07:46  8 of 50 START test assert_scd2_one_current ..................................... [RUN]
+16:07:46  3 of 50 PASS assert_items_grain ................................................ [PASS in 1.09s]
+16:07:46  6 of 50 PASS assert_payments_reconcile ......................................... [PASS in 0.37s]
+16:07:46  9 of 50 START test assert_scd2_point_in_time_matches_source .................... [RUN]
+16:07:46  10 of 50 START test assert_scd2_ranges_valid ................................... [RUN]
+16:07:46  8 of 50 PASS assert_scd2_one_current ........................................... [PASS in 0.46s]
+16:07:46  11 of 50 START test assert_stg_items_grain ..................................... [RUN]
+16:07:46  10 of 50 PASS assert_scd2_ranges_valid ......................................... [PASS in 0.34s]
+16:07:46  12 of 50 START test not_null_dim_customer_customer_key ......................... [RUN]
+16:07:46  7 of 50 PASS assert_revenue_reconciles ......................................... [PASS in 0.70s]
+16:07:46  13 of 50 START test not_null_dim_customer_valid_from ........................... [RUN]
+16:07:47  13 of 50 PASS not_null_dim_customer_valid_from ................................. [PASS in 0.28s]
+16:07:47  11 of 50 PASS assert_stg_items_grain ........................................... [PASS in 0.49s]
+16:07:47  14 of 50 START test not_null_dim_date_date_key ................................. [RUN]
+16:07:47  12 of 50 PASS not_null_dim_customer_customer_key ............................... [PASS in 0.46s]
+16:07:47  15 of 50 START test not_null_dim_product_product_key ........................... [RUN]
+16:07:47  9 of 50 PASS assert_scd2_point_in_time_matches_source .......................... [PASS in 0.95s]
+16:07:47  16 of 50 START test not_null_dim_seller_seller_key ............................. [RUN]
+16:07:47  17 of 50 START test not_null_fct_orders_customer_key ........................... [RUN]
+16:07:47  14 of 50 PASS not_null_dim_date_date_key ....................................... [PASS in 0.38s]
+16:07:47  15 of 50 PASS not_null_dim_product_product_key ................................. [PASS in 0.36s]
+16:07:47  18 of 50 START test not_null_fct_orders_order_id ............................... [RUN]
+16:07:47  19 of 50 START test not_null_stg_customers_customer_id ......................... [RUN]
+16:07:47  17 of 50 PASS not_null_fct_orders_customer_key ................................. [PASS in 0.38s]
+16:07:47  16 of 50 PASS not_null_dim_seller_seller_key ................................... [PASS in 0.40s]
+16:07:47  20 of 50 START test not_null_stg_customers_customer_unique_id .................. [RUN]
+16:07:47  21 of 50 START test not_null_stg_order_items_order_id .......................... [RUN]
+16:07:48  21 of 50 PASS not_null_stg_order_items_order_id ................................ [PASS in 0.24s]
+16:07:48  22 of 50 START test not_null_stg_order_items_price ............................. [RUN]
+16:07:48  18 of 50 PASS not_null_fct_orders_order_id ..................................... [PASS in 0.42s]
+16:07:48  19 of 50 PASS not_null_stg_customers_customer_id ............................... [PASS in 0.41s]
+16:07:48  20 of 50 PASS not_null_stg_customers_customer_unique_id ........................ [PASS in 0.35s]
+16:07:48  23 of 50 START test not_null_stg_orders_customer_id ............................ [RUN]
+16:07:48  24 of 50 START test not_null_stg_orders_order_id ............................... [RUN]
+16:07:48  25 of 50 START test not_null_stg_orders_purchase_ts ............................ [RUN]
+16:07:48  23 of 50 PASS not_null_stg_orders_customer_id .................................. [PASS in 0.27s]
+16:07:48  24 of 50 PASS not_null_stg_orders_order_id ..................................... [PASS in 0.27s]
+16:07:48  26 of 50 START test not_null_stg_products_product_id ........................... [RUN]
+16:07:48  22 of 50 PASS not_null_stg_order_items_price ................................... [PASS in 0.43s]
+16:07:48  27 of 50 START test not_null_stg_reviews_order_id .............................. [RUN]
+16:07:48  28 of 50 START test not_null_stg_sellers_seller_id ............................. [RUN]
+16:07:48  25 of 50 PASS not_null_stg_orders_purchase_ts .................................. [PASS in 0.38s]
+16:07:48  29 of 50 START test relationships_fct_order_items_customer_key__customer_key__ref_dim_customer_  [RUN]
+16:07:48  27 of 50 PASS not_null_stg_reviews_order_id .................................... [PASS in 0.33s]
+16:07:48  30 of 50 START test relationships_fct_order_items_product_key__product_key__ref_dim_product_  [RUN]
+16:07:49  28 of 50 PASS not_null_stg_sellers_seller_id ................................... [PASS in 0.91s]
+16:07:49  26 of 50 PASS not_null_stg_products_product_id ................................. [PASS in 0.98s]
+16:07:49  30 of 50 PASS relationships_fct_order_items_product_key__product_key__ref_dim_product_  [PASS in 0.63s]
+16:07:49  29 of 50 PASS relationships_fct_order_items_customer_key__customer_key__ref_dim_customer_  [PASS in 0.88s]
+16:07:49  31 of 50 START test relationships_fct_order_items_seller_key__seller_key__ref_dim_seller_  [RUN]
+16:07:49  32 of 50 START test relationships_fct_orders_customer_key__customer_key__ref_dim_customer_  [RUN]
+16:07:49  33 of 50 START test relationships_fct_orders_order_date_key__date_key__ref_dim_date_  [RUN]
+16:07:49  34 of 50 START test relationships_stg_order_items_order_id__order_id__ref_stg_orders_  [RUN]
+16:07:50  34 of 50 PASS relationships_stg_order_items_order_id__order_id__ref_stg_orders_  [PASS in 0.49s]
+16:07:50  35 of 50 START test relationships_stg_orders_customer_id__customer_id__ref_stg_customers_  [RUN]
+16:07:50  32 of 50 PASS relationships_fct_orders_customer_key__customer_key__ref_dim_customer_  [PASS in 0.54s]
+16:07:50  36 of 50 START test relationships_stg_payments_order_id__order_id__ref_stg_orders_  [RUN]
+16:07:50  31 of 50 PASS relationships_fct_order_items_seller_key__seller_key__ref_dim_seller_  [PASS in 0.60s]
+16:07:50  37 of 50 START test unique_dim_customer_customer_key ........................... [RUN]
+16:07:50  33 of 50 PASS relationships_fct_orders_order_date_key__date_key__ref_dim_date_ . [PASS in 0.75s]
+16:07:50  38 of 50 START test unique_dim_date_date_key ................................... [RUN]
+16:07:50  37 of 50 PASS unique_dim_customer_customer_key ................................. [PASS in 0.37s]
+16:07:50  39 of 50 START test unique_dim_product_product_key ............................. [RUN]
+16:07:50  38 of 50 PASS unique_dim_date_date_key ......................................... [PASS in 0.33s]
+16:07:50  40 of 50 START test unique_dim_seller_seller_key ............................... [RUN]
+16:07:50  35 of 50 PASS relationships_stg_orders_customer_id__customer_id__ref_stg_customers_  [PASS in 0.74s]
+16:07:50  41 of 50 START test unique_fct_orders_order_id ................................. [RUN]
+16:07:50  36 of 50 PASS relationships_stg_payments_order_id__order_id__ref_stg_orders_ ... [PASS in 0.75s]
+16:07:50  42 of 50 START test unique_stg_customers_customer_id ........................... [RUN]
+16:07:50  40 of 50 PASS unique_dim_seller_seller_key ..................................... [PASS in 0.22s]
+16:07:50  43 of 50 START test unique_stg_orders_order_id ................................. [RUN]
+16:07:51  39 of 50 PASS unique_dim_product_product_key ................................... [PASS in 0.45s]
+16:07:51  44 of 50 START test unique_stg_products_product_id ............................. [RUN]
+16:07:51  42 of 50 PASS unique_stg_customers_customer_id ................................. [PASS in 0.27s]
+16:07:51  45 of 50 START test unique_stg_reviews_order_id ................................ [RUN]
+16:07:51  43 of 50 PASS unique_stg_orders_order_id ....................................... [PASS in 0.32s]
+16:07:51  41 of 50 PASS unique_fct_orders_order_id ....................................... [PASS in 0.45s]
+16:07:51  46 of 50 START test unique_stg_sellers_seller_id ............................... [RUN]
+16:07:51  47 of 50 START test warn_delivered_before_purchase ............................. [RUN]
+16:07:51  44 of 50 PASS unique_stg_products_product_id ................................... [PASS in 0.33s]
+16:07:51  48 of 50 START test warn_delivered_status_without_delivery_date ................ [RUN]
+16:07:51  48 of 50 WARN 8 warn_delivered_status_without_delivery_date .................... [WARN 8 in 0.32s]
+16:07:51  47 of 50 PASS warn_delivered_before_purchase ................................... [PASS in 0.39s]
+16:07:51  46 of 50 PASS unique_stg_sellers_seller_id ..................................... [PASS in 0.41s]
+16:07:51  49 of 50 START test warn_orders_without_items .................................. [RUN]
+16:07:51  50 of 50 START test warn_payment_not_equal_items_plus_freight .................. [RUN]
+16:07:51  45 of 50 PASS unique_stg_reviews_order_id ...................................... [PASS in 0.64s]
+16:07:52  49 of 50 WARN 775 warn_orders_without_items .................................... [WARN 775 in 0.28s]
+16:07:52  50 of 50 WARN 304 warn_payment_not_equal_items_plus_freight .................... [WARN 304 in 0.29s]
+16:07:52
+16:07:52  Finished running 50 data tests in 0 hours 0 minutes and 8.41 seconds (8.41s).
+16:07:52
+16:07:52  Completed with 3 warnings:
+16:07:52
+16:07:52  [WARNING]: in test warn_delivered_status_without_delivery_date (tests/warn_delivered_status_without_delivery_date.sql)
+16:07:52  [WARNING]: Got 8 results, configured to warn if != 0
+16:07:52
+16:07:52    compiled code at target/compiled/ecom_dw/tests/warn_delivered_status_without_delivery_date.sql
+16:07:52
+16:07:52  [WARNING]: in test warn_orders_without_items (tests/warn_orders_without_items.sql)
+16:07:52  [WARNING]: Got 775 results, configured to warn if != 0
+16:07:52
+16:07:52    compiled code at target/compiled/ecom_dw/tests/warn_orders_without_items.sql
+16:07:52
+16:07:52  [WARNING]: in test warn_payment_not_equal_items_plus_freight (tests/warn_payment_not_equal_items_plus_freight.sql)
+16:07:52  [WARNING]: Got 304 results, configured to warn if != 0
+16:07:52
+16:07:52    compiled code at target/compiled/ecom_dw/tests/warn_payment_not_equal_items_plus_freight.sql
+16:07:52
+16:07:52  Done. PASS=47 WARN=3 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=50
+/usr/local/lib/python3.12/site-packages/snowflake/connector/connection/_connection.py:137: FutureWarning: enable_server_session_keep_alive_auto_detection was not set and defaults to True. In a future version, the default will change to None. Please provide an explicit value: True = check for running async queries before logout (queries are preserved); False/None = always send logout on close (async queries may be terminated by server). Logout behavior can also be overridden with server_session_keep_alive. See the connection parameter docs for more info.
+  options = self.config.to_proto_options(
+MATCH    dim_customer rows                                snowflake=96,221.00  postgres=96,221.00
+MATCH    dim_customer current versions                    snowflake=96,097.00  postgres=96,097.00
+MATCH    dim_date rows                                    snowflake=1,096.00  postgres=1,096.00
+MATCH    dim_date weekend days                            snowflake=314.00  postgres=314.00
+MATCH    dim_product rows                                 snowflake=32,952.00  postgres=32,952.00
+MATCH    dim_seller rows                                  snowflake=3,096.00  postgres=3,096.00
+MATCH    fct_orders rows                                  snowflake=99,441.00  postgres=99,441.00
+MATCH    fct_orders sum payment_value                     snowflake=16,008,872.12  postgres=16,008,872.12
+MATCH    fct_orders sum items_value                       snowflake=13,591,643.70  postgres=13,591,643.70
+MATCH    fct_orders sum freight_value                     snowflake=2,251,909.54  postgres=2,251,909.54
+MATCH    fct_orders late orders                           snowflake=6,535.00  postgres=6,535.00
+MATCH    fct_orders delivered orders                      snowflake=96,476.00  postgres=96,476.00
+MATCH    fct_orders sum floor(delivery_days)              snowflake=1,166,789.00  postgres=1,166,789.00
+MATCH    fct_orders orders with a payment_types value     snowflake=99,440.00  postgres=99,440.00
+MATCH    fct_order_items rows                             snowflake=112,650.00  postgres=112,650.00
+MATCH    fct_order_items sum price                        snowflake=13,591,643.70  postgres=13,591,643.70
+MATCH    fct_order_items sum line_total                   snowflake=15,843,553.24  postgres=15,843,553.24
+MATCH    mart_monthly_sales rows                          snowflake=24.00  postgres=24.00
+MATCH    mart_monthly_sales sum orders                    snowflake=98,199.00  postgres=98,199.00
+MATCH    mart_monthly_sales sum items_revenue             snowflake=13,494,400.74  postgres=13,494,400.74
+MATCH    mart_cohort_retention rows                       snowflake=220.00  postgres=220.00
+MATCH    mart_cohort_retention sum active                 snowflake=96,869.00  postgres=96,869.00
+MATCH    mart_cohort_retention max month_offset           snowflake=20.00  postgres=20.00
+MATCH    mart_seller_scorecard rows                       snowflake=3,053.00  postgres=3,053.00
+MATCH    mart_seller_scorecard sum revenue                snowflake=13,494,400.74  postgres=13,494,400.74
+MATCH    mart_category_sales rows                         snowflake=74.00  postgres=74.00
+MATCH    mart_category_sales sum revenue                  snowflake=13,494,400.74  postgres=13,494,400.74
+
+27/27 control totals match the PostgreSQL build
