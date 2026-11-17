@@ -10,3 +10,14 @@ ecom_dw:
       dbname: "{{ env_var('PGDATABASE', 'ecom') }}"
       schema: analytics
       threads: 4
+    # Snowflake blocks single-factor password sign-ins, so this target uses key-pair authentication.
+    snowflake:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER', 'DBT_USER') }}"
+      private_key_path: "{{ env_var('SNOWFLAKE_PRIVATE_KEY_PATH', 'snowflake_key.p8') }}"
+      role: DBT_ROLE
+      warehouse: ECOM_WH
+      database: ECOM
+      schema: analytics
+      threads: 4

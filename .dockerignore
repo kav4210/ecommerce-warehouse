@@ -1,0 +1,9 @@
+data/
+seeds_raw/
+target/
+logs/
+.git/
+*.p8
+snowflake_setup.generated.sql
+.user.yml
+__pycache__/

@@ -1,8 +1,8 @@
 {{ config(post_hook=[
-    "create index on {{ this }} (order_id)",
-    "create index on {{ this }} (product_key)",
-    "create index on {{ this }} (seller_key)",
-    "analyze {{ this }}"
+    "{{ index_hook('order_id') }}",
+    "{{ index_hook('product_key') }}",
+    "{{ index_hook('seller_key') }}",
+    "{{ analyze_hook() }}"
 ]) }}
 select
     i.order_id,

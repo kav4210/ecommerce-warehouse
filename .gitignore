@@ -5,3 +5,7 @@ logs/
 dbt_packages/
 __pycache__/
 .user.yml
+
+# Snowflake credentials and generated setup (never commit)
+*.p8
+snowflake_setup.generated.sql

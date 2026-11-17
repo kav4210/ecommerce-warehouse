@@ -1,4 +1,4 @@
-# E-Commerce Data Warehouse (dbt + PostgreSQL)
+# E-Commerce Data Warehouse (dbt on PostgreSQL and Snowflake)
 
 A star-schema warehouse built with **dbt on PostgreSQL 16** over the real **Olist Brazilian e-commerce dataset** (about 99K orders, Sept 2016 to Oct 2018). Raw CSVs are loaded untouched, dbt types and cleans them in staging, and the marts layer is a Kimball star schema with an SCD Type 2 customer dimension derived from real order history. 50 dbt tests, including reconciliation back to the raw source, were mutation-checked so they are known to fail when the pipeline is broken.
 
@@ -16,6 +16,21 @@ sh scripts/run_all.sh
 ```
 
 Full rebuild from an empty database, including the data download, takes about 20 seconds.
+
+## Run it on Snowflake
+
+The same models run on Snowflake. Dialect differences live in `macros/portable.sql` (adapter dispatch), not in the models: date spine, ISO weekday, epoch seconds, distinct string aggregation, explicit numeric scale, and Postgres-only indexes and `ANALYZE` hooks that become no-ops. Snowflake has no `FILTER` aggregates, named windows, `age()` or `array_agg(...)[1]`, so those were rewritten in plain SQL for both warehouses.
+
+Snowflake blocks single-factor password sign-ins, so dbt and the loader use key-pair authentication (a `TYPE = SERVICE` user).
+
+```bash
+docker compose --profile snowflake run --rm dbt-snowflake python scripts/gen_snowflake_key.py
+# paste snowflake_setup.generated.sql into a Snowsight worksheet and run it once (it prints your account identifier)
+export SNOWFLAKE_ACCOUNT=myorg-myaccount
+docker compose --profile snowflake run --rm dbt-snowflake      # fetch -> load RAW -> dbt run -> dbt test -> parity check
+```
+
+`scripts/verify_marts.py` recomputes 27 control totals (row counts, revenue, payment and freight sums, late-order counts and more) on the Snowflake marts and compares them to the same totals from the PostgreSQL build in `scripts/expected_marts.json`. Output is saved to `evidence/snowflake_run.log`.
 
 ## Architecture
 
@@ -71,7 +86,10 @@ Descriptive findings on this dataset, not causal claims.
 
 - Verified: the full pipeline on PostgreSQL 16 and dbt 1.12.7 / dbt-postgres 1.9.1, from an empty database, with source row counts checked against the published dataset.
 - Verified: `docker compose up --build` on Docker Desktop (Windows) ran fetch, load, `dbt run` (17 models) and `dbt test` (47 pass, 3 warn, 0 fail) and exited with code 0.
-- Not run on a cloud warehouse. The dataset's geolocation table is unused and not loaded.
+- Verified: the Snowflake-portable rewrite changed no PostgreSQL results. All 10 mart tables were diffed row by row (`EXCEPT` in both directions) against a snapshot taken before the rewrite: 0 rows differ, and the test run is identical (47 pass, 3 warn).
+- Verified offline for Snowflake: all 17 models and 13 tests render with the Snowflake macros and parse as Snowflake SQL; pinned requirements install on Python 3.12; the key generator produces a matching key pair.
+- **Not yet verified: an actual run on Snowflake.** Until `evidence/snowflake_run.log` exists in this repo, treat the Snowflake path as untested.
+- The dataset's geolocation table is unused and not loaded.
 
 ## Data source
 

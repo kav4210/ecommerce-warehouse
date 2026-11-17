@@ -1,6 +1,6 @@
 {{ config(post_hook=[
-    "create index on {{ this }} (seller_key)",
-    "analyze {{ this }}"
+    "{{ index_hook('seller_key') }}",
+    "{{ analyze_hook() }}"
 ]) }}
 select seller_id as seller_key, city, state, zip_prefix
 from {{ ref('stg_sellers') }}

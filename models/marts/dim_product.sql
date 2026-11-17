@@ -1,6 +1,6 @@
 {{ config(post_hook=[
-    "create index on {{ this }} (product_key)",
-    "analyze {{ this }}"
+    "{{ index_hook('product_key') }}",
+    "{{ analyze_hook() }}"
 ]) }}
 select product_id as product_key, category, category_pt, weight_g, photos_qty
 from {{ ref('stg_products') }}

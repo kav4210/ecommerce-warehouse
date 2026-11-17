@@ -1,7 +1,7 @@
 {{ config(post_hook=[
-    "create index on {{ this }} (customer_key)",
-    "create index on {{ this }} (customer_unique_id, valid_from)",
-    "analyze {{ this }}"
+    "{{ index_hook('customer_key') }}",
+    "{{ index_hook('customer_unique_id, valid_from') }}",
+    "{{ analyze_hook() }}"
 ]) }}
 {# SCD Type 2 derived from REAL order history.
    Olist gives every order its own customer_id, but customer_unique_id is the person. When one person's
@@ -14,10 +14,9 @@ with o as (
 ),
 marked as (
     select *,
-           lag(city)  over w as prev_city,
-           lag(state) over w as prev_state
+           lag(city)  over (partition by customer_unique_id order by purchase_ts, order_id) as prev_city,
+           lag(state) over (partition by customer_unique_id order by purchase_ts, order_id) as prev_state
     from o
-    window w as (partition by customer_unique_id order by purchase_ts, order_id)
 ),
 runs as (
     select *,
@@ -26,14 +25,19 @@ runs as (
                      rows between unbounded preceding and current row) as run_id
     from marked
 ),
+numbered as (
+    select *,
+           row_number() over (partition by customer_unique_id, run_id order by purchase_ts, order_id) as rn
+    from runs
+),
 versions as (
     select
         customer_unique_id,
         run_id,
-        min(purchase_ts)                                          as valid_from,
-        (array_agg(city  order by purchase_ts, order_id))[1]      as city,
-        (array_agg(state order by purchase_ts, order_id))[1]      as state
-    from runs
+        min(purchase_ts)                          as valid_from,
+        max(case when rn = 1 then city  end)      as city,
+        max(case when rn = 1 then state end)      as state
+    from numbered
     group by customer_unique_id, run_id
 )
 select

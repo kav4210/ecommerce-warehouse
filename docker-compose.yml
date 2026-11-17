@@ -20,5 +20,16 @@ services:
       PGUSER: dbt
       PGPASSWORD: dbt
       PGDATABASE: ecom
+  dbt-snowflake:
+    # Only starts with --profile snowflake, so `docker compose up` still runs the Postgres path alone.
+    profiles: ["snowflake"]
+    build:
+      context: .
+      dockerfile: Dockerfile.snowflake
+    environment:
+      SNOWFLAKE_ACCOUNT: ${SNOWFLAKE_ACCOUNT:-}
+      SNOWFLAKE_USER: ${SNOWFLAKE_USER:-DBT_USER}
+      SNOWFLAKE_PRIVATE_KEY_PATH: /app/snowflake_key.p8
+    volumes: [".:/app"]
 volumes:
   pgdata:

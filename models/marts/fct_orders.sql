@@ -1,8 +1,8 @@
 {{ config(post_hook=[
-    "create index on {{ this }} (order_id)",
-    "create index on {{ this }} (customer_key)",
-    "create index on {{ this }} (order_date_key)",
-    "analyze {{ this }}"
+    "{{ index_hook('order_id') }}",
+    "{{ index_hook('customer_key') }}",
+    "{{ index_hook('order_date_key') }}",
+    "{{ analyze_hook() }}"
 ]) }}
 with items as (
     select order_id, count(*) as item_count,
@@ -11,7 +11,7 @@ with items as (
 ),
 pay as (
     select order_id, sum(payment_value) as payment_value, count(*) as payment_count,
-           string_agg(distinct payment_type, ',' order by payment_type) as payment_types
+           {{ string_agg_distinct('payment_type') }} as payment_types
     from {{ ref('stg_payments') }} group by 1
 )
 select
@@ -28,7 +28,7 @@ select
     r.review_score,
     (o.delivered_ts is not null)                                as is_delivered,
     case when o.delivered_ts is not null
-         then extract(epoch from (o.delivered_ts - o.purchase_ts)) / 86400.0 end as delivery_days,
+         then {{ seconds_between('o.purchase_ts', 'o.delivered_ts') }} / 86400.0 end as delivery_days,
     case when o.delivered_ts is not null and o.estimated_ts is not null
          then o.delivered_ts::date > o.estimated_ts::date end   as is_late
 from {{ ref('stg_orders') }} o
