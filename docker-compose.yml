@@ -31,5 +31,7 @@ services:
       SNOWFLAKE_USER: ${SNOWFLAKE_USER:-DBT_USER}
       SNOWFLAKE_PRIVATE_KEY_PATH: /app/snowflake_key.p8
     volumes: [".:/app"]
+    # strip Windows CRLF line endings on the fly so the script runs even if git converted it on checkout
+    command: ["bash", "-c", "sed 's/\\r$$//' scripts/run_snowflake.sh | bash"]
 volumes:
   pgdata:
