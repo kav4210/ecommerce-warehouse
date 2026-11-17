@@ -1,0 +1,7 @@
+data/
+seeds_raw/
+target/
+logs/
+dbt_packages/
+__pycache__/
+.user.yml
