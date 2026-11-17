@@ -32,6 +32,17 @@ docker compose --profile snowflake run --rm dbt-snowflake      # fetch -> load R
 
 `scripts/verify_marts.py` recomputes 27 control totals (row counts, revenue, payment and freight sums, late-order counts and more) on the Snowflake marts and compares them to the same totals from the PostgreSQL build in `scripts/expected_marts.json`. Output is saved to `evidence/snowflake_run.log`.
 
+## Cross-check with PySpark
+
+`spark/spark_marts.py` rebuilds the warehouse a second way, in PySpark straight from the raw CSVs: window functions for the SCD Type 2 customer history, a point-in-time join for the orders fact, and the same marts. It shares no SQL or code with the dbt models. It then recomputes the 27 control totals in `scripts/expected_marts.json` and fails if any differ from the PostgreSQL build.
+
+```bash
+pip install -r requirements-spark.txt      # needs Java 17+ (run here on Java 21)
+python spark/spark_marts.py data
+```
+
+Result: 27 of 27 control totals match (PostgreSQL vs PySpark), about 1 minute in local mode. Agreement between two independent implementations is evidence the SCD2 and point-in-time logic is correct, not just self-consistent.
+
 ## Architecture
 
 ```
